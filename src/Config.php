@@ -47,7 +47,7 @@ class Config
   static private function getOption($key)
   {
     if ( defined($key)) {
-      return $$key;
+      return constant($key);
     }
     $val = getenv($key);
 
