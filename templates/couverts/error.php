@@ -1,0 +1,1 @@
+<?php _e('An error occurred, please contact the administrators','couverts');

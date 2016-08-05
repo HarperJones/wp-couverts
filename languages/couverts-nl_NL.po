@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Couverts Wordpress Plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Peter Eussen <peter.eussen@harperjones.nl>\n"
+"Language-Team: HarperJones <support@harperjones.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_NL\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: src/Helpers.php:76
+msgid "Plugin not configured properly, please contact administrator"
+msgstr "De Couverts Plugin is niet goed geconfigureerd. Neem contact op met de website beheerder"
+
+#: templates/couverts/error.php:1
+msgid "An error occurred, please contact the administrators"
+msgstr "Er is een fout opgetreden, neem contact op met de website beheerder"
+
+#: templates/couverts/form-contact.php:3
+msgid "Gender"
+msgstr "Geslacht"
+
+#: templates/couverts/form-contact.php:7
+msgid "Male"
+msgstr "Man"
+
+#: templates/couverts/form-contact.php:10
+msgid "Female"
+msgstr "Vrouw"
+
+#: templates/couverts/form-contact.php:17
+msgid "First Name"
+msgstr "Voornaam"
+
+#: templates/couverts/form-contact.php:27
+msgid "Last Name"
+msgstr "Achternaam"
+
+#: templates/couverts/form-contact.php:37
+msgid "Email"
+msgstr "E-mail"
+
+#: templates/couverts/form-contact.php:46
+msgid "Phone"
+msgstr "Telefoon"
+
+#: templates/couverts/form-contact.php:57
+msgid "Postal Code"
+msgstr "Postcode"
+
+#: templates/couverts/form-contact.php:67
+msgid "Birth Date"
+msgstr "Geboortedatum"
+
+#: templates/couverts/form-contact.php:77
+msgid "Comments"
+msgstr "Opmerkingen"
+
+#: templates/couverts/form-html.php:11
+msgid "Date"
+msgstr "Datum"
+
+#: templates/couverts/form-html.php:25 templates/couverts/form-html.php:29
+#: templates/couverts/form-html.php:30 templates/couverts/form-html.php:31
+#: templates/couverts/form-html.php:32 templates/couverts/form-html.php:33
+#: templates/couverts/form-html.php:34 templates/couverts/form-html.php:35
+#: templates/couverts/form-html.php:36 templates/couverts/form-html.php:37
+msgid "Persons"
+msgstr "Personen"
+
+#: templates/couverts/form-html.php:28
+msgid "Person"
+msgstr "Persoon"
+
+#: templates/couverts/form-html.php:41
+msgid "Time"
+msgstr "Tijd"
+
+#: templates/couverts/form-html.php:47
+msgid "Next"
+msgstr "Volgende"
+
+#: templates/couverts/form-html.php:55
+msgid "Back"
+msgstr "Terug"
+
+#: templates/couverts/form-html.php:56
+msgid "Confirm"
+msgstr "Bevestigen"
