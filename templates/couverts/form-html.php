@@ -8,8 +8,8 @@
   <div class="<?php echo implode(' ',apply_filters('couverts_fieldgroup_classes',['form-group','reservation__timeselection'])); ?>">
     <p><?php echo esc_html($info->IntroText->$language) ?></p>
 
-    <label for="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Date','couverts') ?></label>
-    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md3'])) ?>">
+    <label for="reservation_date" class="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Date','couverts') ?></label>
+    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
       <select name="reservation_date" class="form-control js-trigger-reload">
         <?php
         $curdate = new DateTime();
@@ -22,8 +22,8 @@
       </select>
     </div>
 
-    <label for="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Persons','couverts') ?></label>
-    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md3'])) ?>">
+    <label for="reservation_party" class="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Persons','couverts') ?></label>
+    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
       <select name="reservation_party" class="form-control js-trigger-reload">
         <option value="1">1 <?php echo _e('Person','couverts') ?></option>
         <option value="2" selected>2 <?php echo _e('Persons','couverts') ?></option>
@@ -38,8 +38,8 @@
       </select>
     </div>
 
-    <label for="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Time','couverts') ?></label>
-    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md3'])) ?>">
+    <label for="reservation_time" class="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Time','couverts') ?></label>
+    <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
       <select name="reservation_time" class="form-control">
         <!-- Filled by AJAX -->
       </select>
