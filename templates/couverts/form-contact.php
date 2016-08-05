@@ -16,7 +16,7 @@
     <label for="firstname"
            class="col-md-2 control-label"><?php _e('First Name', 'couverts'); ?><?= $inputFields->FirstName->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="firstname" name="firstname" placeholder="first name"
+      <input type="text" class="form-control" id="firstname" name="firstname" placeholder="<?php _e('first name','couverts') ?>"
              value=""<?= $inputFields->FirstName->Required ? " required" : "" ?>>
     </div>
   </div>
@@ -26,7 +26,7 @@
     <label for="lastname"
            class="col-md-2 control-label"><?php _e('Last Name', 'couverts') ?><?= $inputFields->LastName->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="last name"
+      <input type="text" class="form-control" id="lastname" name="lastname" placeholder="<?php _e('last name','couverts') ?>"
              value="" <?= $inputFields->LastName->Required ? " required" : "" ?>>
     </div>
   </div>
@@ -36,17 +36,17 @@
     <label for="email"
            class="col-md-2 control-label"><?php _e('Email', 'couverts') ?><?= $inputFields->Email->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="email" class="form-control" id="email" name="email" placeholder="email address"
+      <input type="email" class="form-control" id="email" name="email" placeholder="<?php _e('email address','couverts'); ?>"
              value="" <?= $inputFields->Email->Required ? " required" : "" ?>>
     </div>
   </div>
 <?php endif ?>
 <?php if ($inputFields->PhoneNumber->Show): ?>
   <div class="form-group">
-    <label for="phonenumber" class="col-md-2 control-label"><?php _e('Phone','couverts') ?>
-      Number<?= $inputFields->PhoneNumber->Required ? " *" : "" ?></label>
+    <label for="phonenumber" class="col-md-2 control-label"><?php _e('Phone Number','couverts') ?>
+      <?= $inputFields->PhoneNumber->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="phone number"
+      <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="<?php _e('phone number','couverts') ?>"
              value="" <?= $inputFields->PhoneNumber->Required ? " required" : "" ?>>
     </div>
   </div>
@@ -56,7 +56,7 @@
     <label for="postalcode"
            class="col-md-2 control-label"><?php _e('Postal Code', 'couverts'); ?><?= $inputFields->PostalCode->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="postal code"
+      <input type="text" class="form-control" id="postalcode" name="postalcode" placeholder="<?php _e('postal code','couverts') ?>"
              value="" <?= $inputFields->PostalCode->Required ? " required" : "" ?>>
     </div>
   </div>
@@ -66,7 +66,7 @@
     <label for="birthdate"
            class="col-md-2 control-label"><?php _e('Birth Date', 'couverts') ?><?= $inputFields->BirthDate->Required ? " *" : "" ?></label>
     <div class="col-md-3">
-      <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="birth date yyyy-mm-dd"
+      <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="<?php _e('Birth date yyyy-mm-dd','couverts') ?>"
              value="" <?= $inputFields->BirthDate->Required ? " required" : "" ?>>
     </div>
   </div>
@@ -77,7 +77,7 @@
            class="col-md-2 control-label"><?php _e('Comments', 'couverts') ?><?= $inputFields->Comments->Required ? " *" : "" ?></label>
     <div class="col-md-3">
         <textarea class="form-control" rows="5" id="comments" name="comments"
-                  placeholder="comments"<?= $inputFields->Comments->Required ? " required" : "" ?>></textarea>
+                  placeholder="<?php _e('comments','couverts') ?>"<?= $inputFields->Comments->Required ? " required" : "" ?>></textarea>
     </div>
   </div>
 <?php endif ?>
