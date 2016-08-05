@@ -23,7 +23,7 @@ class Helpers
    */
   static public function locate_template($template_names,$load = false,$require_once = true)
   {
-    $located = \locate_template($template_names,$load,$require_once);
+    $located = \locate_template($template_names,false,$require_once);
 
     if ( $located === '' ) {
       foreach( (array) $template_names as $template_name ) {
