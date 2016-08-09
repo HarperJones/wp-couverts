@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name:        Couverts
+Plugin Name:        Dinner Reservations Calendar with Couverts
 Plugin URI:
 Description:        Module which will allow you to create a nicer looking Couverts reservation screen on your site
 Version:            1.0
