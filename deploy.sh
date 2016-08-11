@@ -3,7 +3,7 @@
 # The difference is that this script lives in the plugin's git repo & doesn't require an existing SVN repo.
 
 # main config
-PLUGINSLUG="wp-couverts"
+PLUGINSLUG="dinner-reservations-calendar"
 CURRENTDIR=`pwd`
 MAINFILE="couverts.php" # this should be the name of your main php file in the wordpress plugin
 
@@ -68,24 +68,26 @@ git checkout-index -a -f --prefix=$SVNPATH/trunk/
 
 echo "Ignoring github specific files and deployment script"
 svn propset svn:ignore "deploy.sh
+createpo.sh
+version.sh
 README.md
 composer
 .git
 .gitignore" "$SVNPATH/trunk/"
 
-echo "Downloading composer"
-php composer-setup.php --install-dir=bin --filename=${SVNPATH}/composer
+#echo "Downloading composer"
+#php composer-setup.php --install-dir=bin --filename=${SVNPATH}/composer
 
 echo "Changing directory to SVN"
 cd $SVNPATH/trunk/
 
-php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php --filename=composer
-php -r "unlink('composer-setup.php');"
+#php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+#php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+#php composer-setup.php --filename=composer
+#php -r "unlink('composer-setup.php');"
 
-echo "Running composer"
-./composer install
+#echo "Running composer"
+#./composer install
 
 echo "Committing to trunk"
 exit
