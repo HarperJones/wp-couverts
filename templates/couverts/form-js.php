@@ -4,7 +4,7 @@
   function couverts_get_times( form$ )
   {
     var rdate    = form$.find('[name="reservation_date"]').val(),
-        rpersons = form$.find('[name="reservation_party"]').val();
+      rpersons = form$.find('[name="reservation_party"]').val();
 
     var postData = {
       'action': 'couverts_available_times',
@@ -22,9 +22,9 @@
 
       jQuery.each(times.Times, function(index,option) {
         var ts  = option.Hours + ':' + ('00' + option.Minutes).substr(-2),
-            opt = jQuery("<option></option>")
-              .attr('value', ts)
-              .text(ts);
+          opt = jQuery("<option></option>")
+            .attr('value', ts)
+            .text(ts);
 
         if ( ts === selected ) {
           opt.attr('selected','');
@@ -47,19 +47,20 @@
     // @todo: when click on button in reservation__timeselection formgroup, show reservation__contactinfo
     $('.js-page1-submit').on('click',function(e) {
       var form$    = $(this).closest('form');
+      var button$  = $(this);
       var postData = {
         'action': 'couverts_get_contact_form',
         'dt'    : form$.find('[name="reservation_date"]').val(),
         'ts'    : form$.find('[name="reservation_time"]').val()
       };
 
-      $(this).addClass('btn--loading');
+      button$.addClass('btn--loading');
 
       jQuery.post(couverts_ajax_url,postData, function(response) {
         form$.find('.js-contact-fields').html(response);
         $('.reservation__timeselection').addClass('hidden-xs-up');
         $('.reservation__contactinfo').removeClass('hidden-xs-up');
-        $(this).removeClass('btn--loading');
+        button$.removeClass('btn--loading');
       });
 
       e.preventDefault();
@@ -73,14 +74,14 @@
 
     $('.js-page2-submit').on('click',function(e) {
       var form$    = $(this).closest('form');
-          postData = form$.serialize();
+      var button$  = form$.find('.reservation__contactinfo .js-page2-submit');
+      var postData = form$.serialize();
 
       e.preventDefault();
 
-      $(this).addClass('btn--loading');
+      button$.addClass('btn--loading');
       jQuery.post(couverts_ajax_url,postData, function(response) {
-        console.log(response);
-        $(this).removeClass('btn--loading');
+        button$.removeClass('btn--loading');
         var content = jQuery.parseJSON(response);
 
         if ( content.response.status === 'ok' ) {
