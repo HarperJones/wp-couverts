@@ -21,7 +21,7 @@ reservation system on your website. The templates are based on Bootstrap 4.
 To use it, you will have to request an API key from Couverts. Once you obtained
 a valid key, you need to define these in your wp-config.php as follows:
 
-```
+`
 define('COUVERTS_API_KEY','Your-API-Key');
 define('COUVERTS_RESTAURANT_CODE','Your-Restaurant-Code');
 
@@ -31,7 +31,7 @@ define('COUVERTS_API_URL','https://api.couverts.nl/');
 
 // Optionally you need to define this as either Dutch or English
 // define('COUVERTS_LANGUAGE','Dutch');
-```
+`
 
 Alternatively you can also define these variables as enviroment variables
 in a .env file in your project (if you are using a bit more custom setup
