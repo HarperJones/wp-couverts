@@ -1,4 +1,4 @@
-=== Couverts Plugin ===
+=== Dinner Reservations Calendar (with Couverts) ===
 Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5

@@ -1,5 +1,5 @@
-Couverts Plugin
-===============
+Dinner Reservations Calendar (with Couverts)
+============================================
 
 ##Introduction##
 The couverts plugin offers an alternative way of embedding the [Couverts](https://www.couverts.nl/)
