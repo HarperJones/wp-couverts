@@ -3,7 +3,7 @@ Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 Licence: GPLv3
 Author URI: http://harperjones.nl
 Plugin URL: https://github.com/HarperJones/wp-couverts
@@ -53,3 +53,9 @@ You can embed the reservation in two ways:
 
 = 0.1 =
 * Initial release.
+
+= 0.1.1 =
+
+Better versioning & deployment (hopefully)
+
+

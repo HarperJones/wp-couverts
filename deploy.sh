@@ -17,6 +17,10 @@ SVNURL="https://plugins.svn.wordpress.org/dinner-reservations-calendar/" # Remot
 #SVNUSER="notimportant" # your svn username
 
 
+if [ "$1" = "-v" ]; then
+   ${GITPATH}/version.sh
+fi
+
 # Let's begin...
 echo ".........................................."
 echo
@@ -74,6 +78,11 @@ php composer-setup.php --install-dir=bin --filename=${SVNPATH}/composer
 
 echo "Changing directory to SVN"
 cd $SVNPATH/trunk/
+
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --filename=composer
+php -r "unlink('composer-setup.php');"
 
 echo "Running composer"
 ./composer install
