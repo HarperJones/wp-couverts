@@ -6,9 +6,37 @@
 
 namespace HarperJones\Couverts;
 
-
+/**
+ * Obtain configuration in a backward compatible kind of way
+ *
+ * Either load the config from environment, or from a constant
+ *
+ * @package HarperJones\Couverts
+ */
 class Config
 {
+  /**
+   * Generic get of a value, with a backup default value if it can't be found
+   *
+   * @param string $key
+   * @param null $default
+   * @return mixed|null
+   */
+  static public function get($key,$default = null)
+  {
+    $value = self::getOption($key);
+
+    if ( $value !== null ) {
+      return $value;
+    }
+    return $default;
+  }
+
+  /**
+   * Returns the Couverts API Key value
+   *
+   * @return null|string
+   */
   static public function getApiKey()
   {
     return self::getOption('COUVERTS_API_KEY');

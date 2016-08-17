@@ -59,9 +59,20 @@ class ReservationAPI
    */
   public function getBasicInfo()
   {
-    $url = sprintf('%s/BasicInfo', $this->_baseUrl);
+    // Sometimes the API needs to be "booted" so it seems, causing quote long loading times.
+    // If you feel you are sufforing from this on your site. It maybe wise to set the
+    // COUVERTS_CACHE_TIMEOUT setting to a higher value. It now defaults to 5 minutes
+    $response = get_transient('drc-couverts-basic-info');
 
-    return $this->_request($url);
+    if ( $response !== false ) {
+      return $response;
+    }
+
+    $url      = sprintf('%s/BasicInfo', $this->_baseUrl);
+    $response = $this->_request($url);
+
+    set_transient('drc-couverts-basic-info',$response, Config::get('COUVERTS_CACHE_TIMEOUT',300));
+    return $response;
   }
 
   /**
