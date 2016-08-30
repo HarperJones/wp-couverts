@@ -47,6 +47,11 @@ class Config
     return self::getOption('COUVERTS_RESTAURANT_CODE');
   }
 
+  /**
+   * Gets the URL defined by the COUVERTS_API_URL environment or define variable
+   *
+   * @return null|string
+   */
   static public function getAPiURL()
   {
     $url = self::getOption('COUVERTS_API_URL');
@@ -54,6 +59,7 @@ class Config
     if ( !$url ) {
       return 'https://api.testing.couverts.nl';
     }
+    return $url;
   }
 
   static public function getLanguage()
