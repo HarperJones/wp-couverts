@@ -12,7 +12,6 @@ class ReservationService
   protected $info;
   protected $service;
 
-
   public function __construct(ReservationAPI $service)
   {
     $this->service = $service;
@@ -26,17 +25,21 @@ class ReservationService
 
   public function getOpenDates($number)
   {
-    $curdate = new DateTime();
+    $curdate = new \DateTime();
     $final   = [];
 
     for ($d = 0; $d < $number; $d++) {
-      $curdate->add(new DateInterval('P1D'));
+      $curdate->add(new \DateInterval('P1D'));
 
-      $info = $this->service->getDateConfig($curdate);
-      $open = apply_filters('couverts_open_on_date',!$info['IsRestaurantClosed'],$curdate);
+      try {
+        $info = $this->getDateInfo($curdate);
+        $open = apply_filters('couverts_open_on_date',!$info->IsRestaurantClosed,$curdate);
+      } catch( \Exception $e) {
+        $open = false;
+      }
 
       if ( $open ) {
-        $final[] = $curdate;
+        $final[] = clone $curdate;
       }
     }
     return $final;
@@ -92,5 +95,25 @@ class ReservationService
   public function addFormHandling()
   {
     get_template_part('templates/couverts/form-js');
+  }
+
+  private function getDateInfo(\DateTime $date)
+  {
+    $openingInfo = get_site_transient('couverts_opening_info');
+    $ts          = $date->format('Ymd');
+
+    if ( isset($openingInfo[$ts]) ) {
+      return $openingInfo[$ts];
+    }
+
+    $openingInfo[$ts] = $this->service->getDateConfig($date);
+
+    foreach( $openingInfo as $idx => $data ) {
+      if ( (int)$idx < (int)$ts ) {
+        unset($openingInfo[$idx]);
+      }
+    }
+    set_site_transient('couverts_opening_info',$openingInfo,24*3600);
+    return $openingInfo[$ts];
   }
 }
