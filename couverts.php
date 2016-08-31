@@ -41,6 +41,17 @@ function couverts_reservation($date = false)
 }
 
 /**
+ * Returns a set of dates on which the restaurant is open
+ *
+ * @param $amount
+ * @return array
+ */
+function couverts_get_open_dates($amount)
+{
+  return \HarperJones\Couverts\Helpers::getService()->getOpenDates($amount);
+}
+
+/**
  * Get a list of all available times
  *
  */

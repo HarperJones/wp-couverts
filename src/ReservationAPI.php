@@ -75,6 +75,19 @@ class ReservationAPI
     return $response;
   }
 
+  public function getDateConfig(\DateTime $date)
+  {
+    $url = sprintf(
+      "%s/configforday?year=%d&month=%d&day=%d",
+      $this->_baseUrl,
+      $date->format("Y"),
+      $date->format("m"),
+      $date->format("d")
+    );
+
+    return $this->_request($url);
+  }
+
   /**
    * Get available times for a reservation on a specific date
    *

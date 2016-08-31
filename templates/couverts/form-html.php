@@ -1,5 +1,6 @@
 <?php $info = couverts_basic_info(); ?>
 <?php $language = couverts_language() ?>
+<?php $dates    = couverts_get_open_dates(90); ?>
 <form class="couverts-form <?php echo implode(' ',apply_filters('couverts_form_classes',['form-horizontal'])); ?>" method="post">
   <input type="hidden" name="action" value="couverts_handle_reservation" />
   <h1 class="restaurant__name"><?php echo esc_html($info->RestaurantName) ?></h1>
@@ -12,13 +13,10 @@
     <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
       <select name="reservation_date" class="form-control js-trigger-reload">
         <?php
-        $curdate = new DateTime();
-
-        for ($d = 0; $d < 90; $d++):
-          $curdate->add(new DateInterval('P1D'));
+        foreach( $dates as $curdate ):
         ?>
         <option value="<?php echo $curdate->format('Y-m-d') ?>"><?php echo date_i18n('l j F',$curdate->getTimestamp()); ?></option>
-        <?php endfor ?>
+        <?php endforeach; ?>
       </select>
     </div>
 

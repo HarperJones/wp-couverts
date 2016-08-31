@@ -24,6 +24,25 @@ class ReservationService
     return $this->info;
   }
 
+  public function getOpenDates($number)
+  {
+    $curdate = new DateTime();
+    $final   = [];
+
+    for ($d = 0; $d < $number; $d++) {
+      $curdate->add(new DateInterval('P1D'));
+
+      $info = $this->service->getDateConfig($curdate);
+      $open = apply_filters('couverts_open_on_date',!$info['IsRestaurantClosed'],$curdate);
+
+      if ( $open ) {
+        $final[] = $curdate;
+      }
+    }
+    return $final;
+  }
+
+
   public function getAvailableTimeslots($date,$party)
   {
     $date  = new \DateTime($date);
