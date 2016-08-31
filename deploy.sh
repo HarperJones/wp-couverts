@@ -90,8 +90,8 @@ cd $SVNPATH/trunk/
 #./composer install
 
 echo "Committing to trunk"
-exit
 # Add all new files that are not set to be ignored
+cd $SVNPATH 
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
 svn commit -m "$COMMITMSG"
 
