@@ -3,7 +3,7 @@ Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 0.1.4
+Stable tag: 0.2.0
 Licence: GPLv3
 Author URI: http://harperjones.nl
 Plugin URL: https://github.com/HarperJones/wp-couverts
@@ -76,5 +76,13 @@ Better versioning & deployment (hopefully)
 = 0.1.4 =
 
  * Fixed an issue with defining the COUVERTS_API_URL, which blocked sites from using the production URL
+
+
+
+= 0.2.0 =
+
+ * Added calls to the getdateconfig API endpoint to take closing days into consideration
+   This also changes the way the template is built, so please be aware of this when you
+   made the templates custom
 
 
