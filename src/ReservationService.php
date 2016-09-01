@@ -35,8 +35,6 @@ class ReservationService
     }
 
     for ($d = 0; $d < $daysAhead; $d++) {
-      $curdate->add(new \DateInterval('P1D'));
-
       try {
         $info = $this->service->getDateConfig($curdate);
         $open = apply_filters('couverts_open_on_date',!$info->IsRestaurantClosed,$curdate);
@@ -47,6 +45,8 @@ class ReservationService
       if ( $open ) {
         $final[] = clone $curdate;
       }
+
+      $curdate->add(new \DateInterval('P1D'));
     }
 
     set_site_transient('couverts_opening_info_' . $daysAhead,$final,3600);
