@@ -3,7 +3,7 @@ Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 Licence: GPLv3
 Author URI: http://harperjones.nl
 Plugin URL: https://github.com/HarperJones/wp-couverts
@@ -90,4 +90,10 @@ Better versioning & deployment (hopefully)
 = 0.2.1 =
 
  * A better way to handle caching of getDateConfig calls.
+
+
+= 0.2.2 =
+
+ * Fixed an issue where the current day would not show up in the selection list
+
 
