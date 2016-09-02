@@ -1,5 +1,6 @@
 <script type="text/javascript">
-  var couverts_ajax_url = '<?php echo admin_url('admin-ajax.php') ?>';
+  var couverts_ajax_url   = '<?php echo admin_url('admin-ajax.php') ?>';
+  var couverts_day_config = <?php echo couverts_get_day_config_js(90); ?>
 
   function couverts_get_times( form$ )
   {
@@ -27,12 +28,38 @@
             .text(ts);
 
         if ( ts === selected ) {
-          opt.attr('selected','');
+          opt.attr('selected','selected');
         }
         select$.append(opt);
       })
     });
-  }
+  };
+
+  function couverts_change_party_size(form$, curdate)
+  {
+    if ( couverts_day_config[curdate] ) {
+      var selectElement$    = form$.find('[name="reservation_party"]');
+      var selectedPartySize = selectElement$.val();
+      var labelFormatSingle = '__SIZE__ <?php echo _e('Person','couverts') ?>';
+      var labelFormatPlural = '__SIZE__ <?php echo _e('Persons','couverts') ?>';
+
+      selectElement$.empty();
+
+      for ( var size = couverts_day_config[curdate].min; size <= couverts_day_config[curdate].max; size++ ) {
+        var label = (size === 1) ? labelFormatSingle : labelFormatPlural;
+        var last$ = jQuery("<option></option>")
+            .attr("value", size)
+            .text(label.replace('__SIZE__', size));
+
+        if ( last$ ) {
+          if ( size == selectedPartySize ) {
+            last$.attr('selected','selected');
+          }
+        }
+        selectElement$.append(last$);
+      }
+    }
+  };
 
   jQuery(document).ready(function($) {
 
@@ -40,11 +67,17 @@
       couverts_get_times($(this));
     })
 
-    $('.couverts-form select.js-trigger-reload').on('change', function() {
+    $('.couverts-form [data-trigger-times="true"]').on('change', function() {
       couverts_get_times($(this).closest('form'));
     })
 
-    // @todo: when click on button in reservation__timeselection formgroup, show reservation__contactinfo
+    $('.couverts-form [data-trigger-size="true"]').on('change',function() {
+      var form$    = $(this).closest('form');
+      var selected = $(this).val();
+
+      couverts_change_party_size(form$,selected);
+    });
+
     $('.js-page1-submit').on('click',function(e) {
       var form$    = $(this).closest('form');
       var button$  = $(this);
@@ -89,12 +122,10 @@
           $('.reservation__contactinfo').addClass('hidden-xs-up');
           $('.reservation__confirmation').removeClass('hidden-xs-up');
 
-          var tab$ = form$.find('.reservation__confirmation');
         }
 
       });
 
     });
-    // @todo: when click of submit, do ajax submit (postdata.action = 'couvert_handle_reservation') and handle feedback
   });
 </script>

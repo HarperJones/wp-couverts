@@ -11,7 +11,7 @@
 
     <label for="reservation_date" class="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Date','couverts') ?></label>
     <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
-      <select name="reservation_date" class="form-control js-trigger-reload">
+      <select name="reservation_date" class="form-control js-trigger-reload" data-trigger-times="true" data-trigger-size="true">
         <?php
         foreach( $dates as $curdate ):
         ?>
@@ -22,7 +22,7 @@
 
     <label for="reservation_party" class="<?php echo implode(' ',apply_filters('couverts_label_classes',['control-label','col-md-2'])); ?>"><?php _e('Persons','couverts') ?></label>
     <div class="<?php echo implode(' ',apply_filters('couverts_field_container',['col-md-3'])) ?>">
-      <select name="reservation_party" class="form-control js-trigger-reload">
+      <select name="reservation_party" class="form-control js-trigger-reload" data-trigger-times="true">
         <option value="1">1 <?php echo _e('Person','couverts') ?></option>
         <option value="2" selected>2 <?php echo _e('Persons','couverts') ?></option>
         <option value="3">3 <?php echo _e('Persons','couverts') ?></option>

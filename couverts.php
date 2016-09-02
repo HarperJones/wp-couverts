@@ -52,6 +52,28 @@ function couverts_get_open_dates($amount)
 }
 
 /**
+ * Returns information about maximum party size etc
+ *
+ * @param $daysAhead
+ * @return array
+ */
+function couverts_get_day_config($daysAhead)
+{
+  return \HarperJones\Couverts\Helpers::getService()->getDayConfig($daysAhead);
+}
+
+/**
+ * Return day configuration for a number of days in the future as a javascript object
+ *
+ * @param $daysAhead
+ * @return string
+ */
+function couverts_get_day_config_js($daysAhead)
+{
+  return \HarperJones\Couverts\Helpers::getService()->getConfigObject($daysAhead);
+}
+
+/**
  * Get a list of all available times
  *
  */

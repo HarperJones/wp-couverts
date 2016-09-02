@@ -7,8 +7,6 @@
 namespace HarperJones\Couverts;
 
 
-use Symfony\Component\Console\Exception\RuntimeException;
-
 class Helpers
 {
   static $instance = null;
@@ -73,7 +71,7 @@ class Helpers
   static public function getService()
   {
     if ( !static::requirementsMet()) {
-      throw new RuntimeException(__('Plugin not configured properly, please contact administrator','couverts'));
+      throw new \RuntimeException(__('Plugin not configured properly, please contact administrator','couverts'));
     }
     if ( self::$instance === null ) {
       $api            = new ReservationAPI(

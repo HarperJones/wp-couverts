@@ -6,10 +6,25 @@
 
 namespace HarperJones\Couverts;
 
-
+/**
+ * Base service class which wraps the Couverts API to make things a bit easier to use
+ *
+ * @package HarperJones\Couverts
+ */
 class ReservationService
 {
+  /**
+   * The Basic Information of a company
+   *
+   * @var object
+   */
   protected $info;
+
+  /**
+   * The actual API wrapper when we need to some info
+   *
+   * @var ReservationAPI
+   */
   protected $service;
 
   public function __construct(ReservationAPI $service)
@@ -18,42 +33,87 @@ class ReservationService
     $this->info    = $this->service->getBasicInfo();
   }
 
+  /**
+   * Returns the basic information of a company/restaurant as supplied by Couverts
+   *
+   * @return object
+   */
   public function getBasicInfo()
   {
     return $this->info;
   }
 
+  /**
+   * Returns all day configuration information as an Array
+   *
+   * @param $daysAhead
+   * @return array
+   */
+  public function getDayConfig($daysAhead)
+  {
+    $dayConfig = get_site_transient('couverts_day_config_' . $daysAhead);
+
+    if ( $dayConfig && is_array($dayConfig) ) {
+      return $dayConfig;
+    }
+
+    $curdate   = new \DateTime();
+    $dayInfo   = [];
+
+    for ($d = 0; $d < $daysAhead; $d++) {
+      try {
+        $info = $this->service->getDateConfig($curdate);
+      } catch( \Exception $e) {
+        continue;
+      }
+
+      $info->Date                         = clone $curdate;
+      $dayInfo[$curdate->format('Y-m-d')] = $info;
+
+      $curdate->add(new \DateInterval('P1D'));
+    }
+    set_site_transient('couverts_day_config_' . $daysAhead, $dayInfo, 3600);
+
+    return $dayInfo;
+  }
+
+  /**
+   * Returns a set of dates on which the restaurant is open
+   *
+   * @param $daysAhead
+   * @return array|bool
+   */
   public function getOpenDates($daysAhead)
   {
-    $curdate = new \DateTime();
-    $final   = [];
-
-    $openingInfo = get_site_transient('couverts_opening_info_' . $daysAhead);
+    $final       = [];
+    $openingInfo = false;
+//    $openingInfo = get_site_transient('couverts_opening_info_' . $daysAhead);
 
     if ( $openingInfo && is_array($openingInfo) ) {
       return $openingInfo;
     }
 
-    for ($d = 0; $d < $daysAhead; $d++) {
-      try {
-        $info = $this->service->getDateConfig($curdate);
-        $open = apply_filters('couverts_open_on_date',!$info->IsRestaurantClosed,$curdate);
-      } catch( \Exception $e) {
-        $open = false;
-      }
+    $dayConfig = $this->getDayConfig($daysAhead);
 
-      if ( $open ) {
-        $final[] = clone $curdate;
+    foreach( $dayConfig as $config ) {
+      if ( apply_filters('couverts_open_on_date',!$config->IsRestaurantClosed,$config->Date) ) {
+        $final[] = $config->Date;
       }
-
-      $curdate->add(new \DateInterval('P1D'));
     }
 
-    set_site_transient('couverts_opening_info_' . $daysAhead,$final,3600);
+//    set_site_transient('couverts_opening_info_' . $daysAhead, $final, 3600);
+
     return $final;
   }
 
 
+  /**
+   * Get a list of available times for a specific date and group size
+   *
+   * @param $date
+   * @param $party
+   * @return object
+   */
   public function getAvailableTimeslots($date,$party)
   {
     $date  = new \DateTime($date);
@@ -65,6 +125,29 @@ class ReservationService
       $reply->NoTimesAvailable = true;
     }
     return $reply;
+  }
+
+  /**
+   * Returns the day configuration as javascript object
+   *
+   * @param $daysAhead
+   * @return string
+   */
+  public function getConfigObject($daysAhead)
+  {
+    $dayInfo = $this->getDayConfig($daysAhead);
+
+    $entries = [];
+    foreach( $dayInfo as $dayConfig ) {
+      $entries[] = sprintf(
+        '"%s": { min: %d, max: %d }',
+        $dayConfig->Date->format('Y-m-d'),
+        $dayConfig->MinimumNumberOfPeople,
+        $dayConfig->GroupReservationFromNumberOfPeople - 1
+      );
+    }
+
+    return "{" . implode($entries,",") . "};\n";
   }
 
   public function getFormFields($datetime = false)
@@ -102,6 +185,7 @@ class ReservationService
 
   public function addFormHandling()
   {
+    // Maybe this should be an enqueue, but this works fine for now
     get_template_part('templates/couverts/form-js');
   }
 
