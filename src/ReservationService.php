@@ -72,7 +72,7 @@ class ReservationService
 
       $curdate->add(new \DateInterval('P1D'));
     }
-    set_site_transient('couverts_day_config_' . $daysAhead, $dayInfo, 3600);
+    set_site_transient('couverts_day_config_' . $daysAhead, $dayInfo, Config::get('COUVERTS_CACHE_TIMEOUT',3600));
 
     return $dayInfo;
   }
@@ -87,7 +87,7 @@ class ReservationService
   {
     $final       = [];
     $openingInfo = false;
-//    $openingInfo = get_site_transient('couverts_opening_info_' . $daysAhead);
+    $openingInfo = get_site_transient('couverts_opening_info_' . $daysAhead);
 
     if ( $openingInfo && is_array($openingInfo) ) {
       return $openingInfo;
@@ -101,7 +101,7 @@ class ReservationService
       }
     }
 
-//    set_site_transient('couverts_opening_info_' . $daysAhead, $final, 3600);
+    set_site_transient('couverts_opening_info_' . $daysAhead, $final, Config::get('COUVERTS_CACHE_TIMEOUT',3600));
 
     return $final;
   }

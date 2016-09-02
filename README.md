@@ -19,11 +19,16 @@ define('COUVERTS_API_URL','https://api.couverts.nl/');
 
 // Optionally you need to define this as either Dutch or English
 // define('COUVERTS_LANGUAGE','Dutch');
+
+// Define a different Timeout for API cache (defaults to 3600 seconds)
+// define('COUVERTS_CACHE_TIMEOUT',7200);
 ```
 
 Alternatively you can also define these variables as enviroment variables
 in a .env file in your project (if you are using a bit more custom setup
-as for example roots/bedrock). 
+as for example roots/bedrock).
+ 
+If you use .env variables, they will take precedence over the defines. 
 
 ##Customization##
 You may want to adjust the code that is generated. To do so you simply

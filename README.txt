@@ -3,7 +3,7 @@ Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 0.2.2
+Stable tag: 1.0.0
 Licence: GPLv3
 Author URI: http://harperjones.nl
 Plugin URL: https://github.com/HarperJones/wp-couverts
@@ -52,32 +52,24 @@ You can embed the reservation in two ways:
 == Changelog ==
 
 = 0.1 =
+
 * Initial release.
 
 = 0.1.1 =
 
 Better versioning & deployment (hopefully)
 
-
-
 = 0.1.2 =
 
 * Added small fix to properly remove the loading class from the buttons after loading is complete
-
-
 
 = 0.1.3 =
 
 * Added caching for the Basic Info API requests to avoid long loading times on all page requests
 
-
-
-
 = 0.1.4 =
 
  * Fixed an issue with defining the COUVERTS_API_URL, which blocked sites from using the production URL
-
-
 
 = 0.2.0 =
 
@@ -85,15 +77,23 @@ Better versioning & deployment (hopefully)
    This also changes the way the template is built, so please be aware of this when you
    made the templates custom
 
-
-
 = 0.2.1 =
 
  * A better way to handle caching of getDateConfig calls.
-
 
 = 0.2.2 =
 
  * Fixed an issue where the current day would not show up in the selection list
 
+= 1.0.0 =
+
+ * Added support for day configurations (minimum and maximum party size). 
+   Please be aware that if you upgrade to this version and you pulled the templates locally, 
+   you will not notice the changes. To make this work, I had to change the javascript and
+   the form slightly.
+
+ * Also changed the default layout of the form to form-horizontal
+ * This release now includes all major parts of the Couverts API, except handling of larger
+   groups. So you should be able to use this Plugin for "normal" group sizes now.
+  
 
