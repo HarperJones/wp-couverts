@@ -3,7 +3,7 @@ Contributors: peter.eussen
 Tags: forms,couverts,reservation,api,shortcode
 Requires at least: 4.5
 Tested up to: 4.5.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Licence: GPLv3
 Author URI: http://harperjones.nl
 Plugin URL: https://github.com/HarperJones/wp-couverts
@@ -96,4 +96,9 @@ Better versioning & deployment (hopefully)
  * This release now includes all major parts of the Couverts API, except handling of larger
    groups. So you should be able to use this Plugin for "normal" group sizes now.
   
+
+
+= 1.0.1 =
+
+  * Fixed an issue when no times are available
 
