@@ -17,6 +17,7 @@ require_once('src/Helpers.php');
 require_once('src/Reservation.php');
 require_once('src/ReservationAPI.php');
 require_once('src/ReservationService.php');
+require_once('src/NoTimeAvailableException.php');
 
 define("COUVERTS_PLUGIN_PATH",__DIR__);
 define("COUVERTS_PLUGIN_BASEURL", plugin_dir_url(__FILE__));
