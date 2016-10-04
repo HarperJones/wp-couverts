@@ -117,7 +117,18 @@ class ReservationService
   public function getAvailableTimeslots($date,$party)
   {
     $date  = new \DateTime($date);
-    $reply = $this->service->getAvailableTimes($date,$party);
+
+    try {
+      $reply = $this->service->getAvailableTimes($date, $party);
+    } catch ( \Exception $e) {
+      if ($e instanceof NoTimeAvailableException ) {
+        $reply = new \stdClass();
+        $reply->Times            = array();
+        $reply->NoTimesAvailable = true;
+      } else {
+        throw $e;
+      }
+    }
 
     if ( !isset($reply->Times) ) {
       $reply = new \stdClass();

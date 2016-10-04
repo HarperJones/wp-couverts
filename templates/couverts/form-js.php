@@ -13,25 +13,46 @@
       'party' : rpersons
     };
 
+    var select$ = form$.find('[name="reservation_time"]');
+    select$.prop('disabled', true);
+
     jQuery.post(couverts_ajax_url,postData, function(response) {
-      var times   = jQuery.parseJSON(response);
-      var select$ = form$.find('[name="reservation_time"]');
 
-      var selected = select$.val();
+      try {
+        var times   = jQuery.parseJSON(response);
+        select$.prop('disabled', false);
 
-      select$.empty();
+        var selected = select$.val();
 
-      jQuery.each(times.Times, function(index,option) {
-        var ts  = option.Hours + ':' + ('00' + option.Minutes).substr(-2),
+        select$.empty();
+
+        if(times.NoTimesAvailable) {
+
           opt = jQuery("<option></option>")
-            .attr('value', ts)
-            .text(ts);
+            .attr('value', '')
+            .attr('selected', 'selected')
+            .prop('disabled', true)
+            .text('<?php echo _e('No available timeslots','couverts') ?>');
 
-        if ( ts === selected ) {
-          opt.attr('selected','selected');
+          select$.append(opt);
+
+        } else {
+          jQuery.each(times.Times, function (index, option) {
+            var ts = option.Hours + ':' + ('00' + option.Minutes).substr(-2),
+              opt = jQuery("<option></option>")
+                .attr('value', ts)
+                .text(ts);
+
+            if (ts === selected) {
+              opt.attr('selected', 'selected');
+            }
+            select$.append(opt);
+          });
         }
-        select$.append(opt);
-      })
+      } catch (err) {
+        jQuery('.reservation__timeselection').html(response);
+      }
+
     });
   };
 
@@ -86,6 +107,10 @@
         'dt'    : form$.find('[name="reservation_date"]').val(),
         'ts'    : form$.find('[name="reservation_time"]').val()
       };
+
+      if(!postData.ts) {
+        return false;
+      }
 
       button$.addClass('btn--loading');
 
