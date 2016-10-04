@@ -80,6 +80,7 @@ class Config
 
   static private function getOption($key)
   {
+
     if ( defined($key)) {
       return constant($key);
     }
@@ -88,6 +89,13 @@ class Config
     if ( $val ) {
       return $val;
     }
+
+    $options = get_option('couverts_settings');
+
+    if($options[$key]) {
+      return $options[$key];
+    }
+
     return null;
   }
 }

@@ -18,6 +18,7 @@ require_once('src/Reservation.php');
 require_once('src/ReservationAPI.php');
 require_once('src/ReservationService.php');
 require_once('src/NoTimeAvailableException.php');
+require_once('src/AdminOptions.php');
 
 define("COUVERTS_PLUGIN_PATH",__DIR__);
 define("COUVERTS_PLUGIN_BASEURL", plugin_dir_url(__FILE__));
@@ -154,6 +155,10 @@ add_action('wp_ajax_nopriv_couverts_get_contact_form','couverts_get_contact_form
 add_action('init',function() {
   load_plugin_textdomain('couverts',false,dirname(plugin_basename(__FILE__)) . '/languages');
 });
+
+if(is_admin()) {
+  new \HarperJones\Couverts\AdminOptions();
+}
 
 if ( !\HarperJones\Couverts\Helpers::requirementsMet()) {
   add_action('admin_notices', function() {
