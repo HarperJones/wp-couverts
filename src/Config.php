@@ -92,7 +92,7 @@ class Config
 
     $options = get_option('couverts_settings');
 
-    if($options[$key]) {
+    if( isset($options[$key]) ) {
       return $options[$key];
     }
 
