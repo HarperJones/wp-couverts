@@ -10,6 +10,7 @@ namespace HarperJones\Couverts;
 class Helpers
 {
   static $instance = null;
+  static $admin    = null;
 
   /**
    * Rewrite of locate_template to also load from plugin directory
@@ -83,6 +84,14 @@ class Helpers
       self::$instance = new ReservationService($api);
     }
     return self::$instance;
+  }
+
+  static public function setupAdmin()
+  {
+    if ( static::$admin === null ) {
+      static::$admin = new \HarperJones\Couverts\AdminOptions();
+    }
+    return static::$admin;
   }
 
   static public function requirementsMet()

@@ -21,6 +21,7 @@ require_once('src/NoTimeAvailableException.php');
 require_once('src/AdminOptions.php');
 
 define("COUVERTS_PLUGIN_PATH",__DIR__);
+define("COUVERTS_PLUGIN_FILE", plugin_basename(__FILE__));
 define("COUVERTS_PLUGIN_BASEURL", plugin_dir_url(__FILE__));
 
 /**
@@ -157,7 +158,7 @@ add_action('init',function() {
 });
 
 if(is_admin()) {
-  new \HarperJones\Couverts\AdminOptions();
+  \HarperJones\Couverts\Helpers::setupAdmin();
 }
 
 if ( !\HarperJones\Couverts\Helpers::requirementsMet()) {
