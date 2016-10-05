@@ -13,20 +13,27 @@ class AdminOptions
 
   public function __construct()
   {
-    add_action('admin_menu', array(&$this, 'couverts_add_admin_menu'));
-    add_action('admin_init', array(&$this, 'couverts_settings_init'));
+    add_action('admin_menu', array($this, 'addAdminMenu'));
+    add_action('admin_init', array($this, 'settingsInit'));
+
+    add_filter('plugin_action_links_' . COUVERTS_PLUGIN_FILE, array($this,'addSettingsLink'));
   }
 
 
-  function couverts_add_admin_menu()
+  public function addAdminMenu()
   {
 
-    add_options_page('Couverts', 'Couverts', 'manage_options', 'couverts', array(&$this, 'couverts_options_page'));
+    add_options_page('Couverts', 'Couverts', 'manage_options', 'couverts', array($this, 'optionsPage'));
 
   }
 
+  public function addSettingsLink($links)
+  {
+    array_unshift($links,'<a href="' . admin_url('options-general.php?page=couverts') . '">' . __('Settings','couverts') . '</a>');
+    return $links;
+  }
 
-  function couverts_settings_init()
+  public function settingsInit()
   {
 
     register_setting('pluginPage', 'couverts_settings');
@@ -41,7 +48,7 @@ class AdminOptions
     add_settings_field(
       'COUVERTS_RESTAURANT_CODE',
       __('Restaurant Code', 'couverts'),
-      array(&$this, 'couverts_restaurant_id_field_render'),
+      array($this, 'renderRestaurantIdField'),
       'pluginPage',
       'couverts_pluginPage_section'
     );
@@ -49,7 +56,7 @@ class AdminOptions
     add_settings_field(
       'COUVERTS_API_KEY',
       __('Api Key', 'couverts'),
-      array(&$this, 'couverts_api_key_field_render'),
+      array($this, 'renderApiKeyField'),
       'pluginPage',
       'couverts_pluginPage_section'
     );
@@ -57,7 +64,7 @@ class AdminOptions
     add_settings_field(
       'COUVERTS_API_URL',
       __('Operation Mode', 'couverts'),
-      array(&$this, 'couverts_test_switch_field_render'),
+      array($this, 'renderStageField'),
       'pluginPage',
       'couverts_pluginPage_section'
     );
@@ -65,7 +72,7 @@ class AdminOptions
     add_settings_field(
       'COUVERTS_LANGUAGE',
       __('Language', 'couverts'),
-      array(&$this, 'couverts_couverts_language_field_render'),
+      array($this, 'renderLanguageField'),
       'pluginPage',
       'couverts_pluginPage_section'
     );
@@ -73,7 +80,7 @@ class AdminOptions
     add_settings_field(
       'COUVERTS_CACHE_TIMEOUT',
       __('Advanced Setting: Cache timeout(ms)', 'couverts'),
-      array(&$this, 'couverts_cache_timeout_field_render'),
+      array($this, 'renderCacheTimeoutField'),
       'pluginPage',
       'couverts_pluginPage_section'
     );
@@ -82,52 +89,49 @@ class AdminOptions
   }
 
 
-  function couverts_restaurant_id_field_render()
+  public function renderRestaurantIdField()
   {
 
-    $options = get_option('couverts_settings');
     ?>
-    <input type='text' name='couverts_settings[COUVERTS_RESTAURANT_CODE]'
-           value='<?php echo $options['COUVERTS_RESTAURANT_CODE']; ?>'>
+    <input type='text' name='couverts_settings[COUVERTS_RESTAURANT_CODE]' <?= $this->codeDefined('COUVERTS_RESTAURANT_CODE') ? 'readonly' : '' ?>
+           value='<?php echo Config::getRestaurantCode() ?>' size="5">
     <?php
 
   }
 
 
-  function couverts_api_key_field_render()
+  public function renderApiKeyField()
   {
-
-    $options = get_option('couverts_settings');
     ?>
-    <input type='text' name='couverts_settings[COUVERTS_API_KEY]'
-           value='<?php echo $options['COUVERTS_API_KEY']; ?>'>
+    <input type='text' name='couverts_settings[COUVERTS_API_KEY]' <?= $this->codeDefined('COUVERTS_API_KEY') ? 'readonly' : '' ?>
+           value='<?php echo Config::getApiKey() ?>' size="42">
     <?php
 
   }
 
 
-  function couverts_test_switch_field_render()
+  public function renderStageField()
   {
 
-    $options = get_option('couverts_settings');
+    $url = Config::getAPiURL();
     ?>
-    <select name='couverts_settings[COUVERTS_API_URL]'>
-      <option value='https://api.testing.couverts.nl' <?php selected($options['COUVERTS_API_URL'], 'https://api.testing.couverts.nl'); ?>>Test</option>
-      <option value='https://api.couverts.nl/' <?php selected($options['COUVERTS_API_URL'], 'https://api.couverts.nl/'); ?>>Live</option>
+    <select name='couverts_settings[COUVERTS_API_URL]' <?= $this->codeDefined('COUVERTS_API_URL') ? 'disabled' : '' ?>>
+      <option value='https://api.testing.couverts.nl' <?php selected($url, 'https://api.testing.couverts.nl'); ?>><?php _e('Test','couverts'); ?></option>
+      <option value='https://api.couverts.nl/' <?php selected($url, 'https://api.couverts.nl/'); ?>><?php _e('Live','couverts'); ?></option>
     </select>
     <?php
 
   }
 
 
-  function couverts_couverts_language_field_render()
+  public function renderLanguageField()
   {
+    $lang = Config::getLanguage();
 
-    $options = get_option('couverts_settings');
     ?>
-    <select name='couverts_settings[COUVERTS_LANGUAGE]'>
-      <option value='Dutch' <?php selected($options['COUVERTS_LANGUAGE'], 'Dutch'); ?>>Dutch</option>
-      <option value='English' <?php selected($options['COUVERTS_LANGUAGE'], 'English'); ?>>English</option>
+    <select name='couverts_settings[COUVERTS_LANGUAGE]' <?= $this->codeDefined('COUVERTS_API_URL') ? 'disabled' : '' ?>>
+      <option value='Dutch' <?php selected($lang, 'Dutch'); ?>><?php _e('Dutch','couverts'); ?></option>
+      <option value='English' <?php selected($lang, 'English'); ?>><?php _e('English','couverts'); ?></option>
     </select>
 
     <?php
@@ -135,12 +139,12 @@ class AdminOptions
   }
 
 
-  function couverts_cache_timeout_field_render()
+  public function renderCacheTimeoutField()
   {
 
     $options = get_option('couverts_settings');
     ?>
-    <input type='text' name='couverts_settings[COUVERTS_CACHE_TIMEOUT]'
+    <input type='text' name='couverts_settings[COUVERTS_CACHE_TIMEOUT]' <?= $this->codeDefined('COUVERTS_CACHE_TIMEOUT') ? 'readonly' : '' ?>
            value='<?php echo ($options['COUVERTS_CACHE_TIMEOUT'] != '') ? $options['COUVERTS_CACHE_TIMEOUT'] : 300; ?>'>
     <?php
 
@@ -151,8 +155,10 @@ class AdminOptions
   }
 
 
-  function couverts_options_page()
+  public function optionsPage()
   {
+
+
 
     ?>
     <form action='options.php' method='post'>
@@ -168,5 +174,10 @@ class AdminOptions
     </form>
     <?php
 
+  }
+
+  private function codeDefined($option)
+  {
+    return defined($option) || getenv($option);
   }
 }
