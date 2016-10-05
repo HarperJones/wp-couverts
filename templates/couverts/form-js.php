@@ -28,7 +28,7 @@
 
         if(times.NoTimesAvailable) {
 
-          opt = jQuery("<option></option>")
+          var opt = jQuery("<option></option>")
             .attr('value', '')
             .attr('selected', 'selected')
             .prop('disabled', true)
