@@ -120,21 +120,19 @@ class ReservationService
 
     try {
       $reply = $this->service->getAvailableTimes($date, $party);
-    } catch ( \Exception $e) {
-      if ($e instanceof NoTimeAvailableException ) {
+
+      // Failsafe in case there is no time available
+      if ( !isset($reply->Times) ) {
         $reply = new \stdClass();
         $reply->Times            = array();
         $reply->NoTimesAvailable = true;
-      } else {
-        throw $e;
       }
-    }
-
-    if ( !isset($reply->Times) ) {
+    } catch ( NoTimeAvailableException $e) {
       $reply = new \stdClass();
       $reply->Times            = array();
       $reply->NoTimesAvailable = true;
     }
+
     return $reply;
   }
 
