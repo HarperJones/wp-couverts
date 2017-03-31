@@ -3,7 +3,7 @@
 Plugin Name:        Dinner Reservations Calendar with Couverts
 Plugin URI:         https://github.com/HarperJones/wp-couverts
 Description:        Module which will allow you to create a nicer looking Couverts reservation screen on your site
-Version:            1.1
+Version:            1.1.1
 Author:             HarperJones
 Author URI:         https://harperjones.nl
 Text Domain:        couverts
