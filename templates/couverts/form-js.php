@@ -147,6 +147,15 @@
           $('.reservation__contactinfo').addClass('hidden-xs-up');
           $('.reservation__confirmation').removeClass('hidden-xs-up');
 
+          if (typeof ga === 'function') {
+            ga('send', {
+              hitType: 'event',
+              eventCategory: 'Reservation',
+              eventAction: 'confirmed',
+              eventLabel: 'Reservation Confirmed'
+            });
+          }
+
         }
 
       });
